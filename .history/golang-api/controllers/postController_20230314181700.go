@@ -44,7 +44,7 @@ func CreatePost(c *fiber.Ctx) error {
 			return nil
 		}
 	}
-	image := "http://localhost:3000/api/upload/" + fileName
+	image := "http://localhost:8080/api/upload/" + fileName
 
 	var createPost models.Blog
 	if err := c.BodyParser(&createPost); err != nil {

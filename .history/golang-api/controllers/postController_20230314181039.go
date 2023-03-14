@@ -20,11 +20,7 @@ func randLetter(n int) string {
 }
 
 func ShowAllPosts(c *fiber.Ctx) error {
-	var all_posts []models.Blog
-	database.DB.Preload("User").Find(&all_posts)
-	return c.JSON(fiber.Map{
-		"posts": all_posts,
-	})
+	return c.SendString("ShowAllPosts")
 }
 
 func CreatePost(c *fiber.Ctx) error {
@@ -44,7 +40,7 @@ func CreatePost(c *fiber.Ctx) error {
 			return nil
 		}
 	}
-	image := "http://localhost:3000/api/upload/" + fileName
+	image := "http://localhost:8080/api/upload/" + fileName
 
 	var createPost models.Blog
 	if err := c.BodyParser(&createPost); err != nil {
