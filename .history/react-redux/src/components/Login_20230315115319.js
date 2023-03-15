@@ -61,14 +61,14 @@ const Login = () => {
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-          <div className='pt-2'>
-              <Button type='submit' >Login</Button>
-              <Link to="/register" className='text-decoration-none' 
-                style={{fontFamily: 'cursive', paddingLeft: '10px'}}>
-                  Doesn't account! go to Register ..
-              </Link>
-            </div>
         </Form>
+        <div className='pt-2'>
+            <Button type='submit' >Login</Button>
+            <Link to="/register" className='text-decoration-none' 
+              style={{fontFamily: 'cursive', paddingLeft: '10px'}}>
+                Doesn't account! go to Register ..
+            </Link>
+          </div>
       </div>
     </>
   )

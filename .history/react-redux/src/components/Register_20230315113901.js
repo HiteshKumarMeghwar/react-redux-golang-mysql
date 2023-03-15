@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 const Register = () => {
 
@@ -113,10 +112,6 @@ const Register = () => {
           </Form.Group>
           <div className='pt-2'>
             <Button type='submit' >Register</Button>
-            <Link to="/login" className='text-decoration-none' 
-              style={{fontFamily: 'cursive', paddingLeft: '10px'}}>
-                Already have account! go to Login ..
-            </Link>
           </div>
         </Form>
       </div>

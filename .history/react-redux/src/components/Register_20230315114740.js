@@ -114,7 +114,7 @@ const Register = () => {
           <div className='pt-2'>
             <Button type='submit' >Register</Button>
             <Link to="/login" className='text-decoration-none' 
-              style={{fontFamily: 'cursive', paddingLeft: '10px'}}>
+              style={{fontFamily: 'cursive', paddingLeft: '20px'}}>
                 Already have account! go to Login ..
             </Link>
           </div>
