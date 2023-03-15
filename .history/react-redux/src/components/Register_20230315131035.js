@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
+import { navigate } from 'navigate';
 import { Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
 
@@ -11,17 +12,9 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState();
-  const navigate = useNavigate();
+  const [userData, setaUserData] = useState("");
 
-  useEffect(() => {
-      const User = localStorage.getItem("user");
-      if(User) {
-          navigate("/")
-      }
-  }, [navigate]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // validate form fields
     const errors = {};
@@ -56,11 +49,10 @@ const Register = () => {
         "phone":phone
       }
       // console.log(data);
-      await axios.post('http://localhost:3000/api/register', data)
+      axios.post('http://localhost:3000/api/register', data)
       .then(response => {
-        // console.log(response.data);
-        setMessage(response?.data?.message)
-        navigate("/login", message)
+        console.log(response.data);
+        navigate('/');
       })
       .catch(error => {
         console.error(error);

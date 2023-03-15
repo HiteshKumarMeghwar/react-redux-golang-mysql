@@ -4,6 +4,7 @@
         "gohtml",
         "gorm",
         "lestrrat",
-        "Meghwar"
+        "Meghwar",
+        "toastify"
     ]
 }

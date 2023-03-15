@@ -21,7 +21,7 @@ const Register = () => {
       }
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // validate form fields
     const errors = {};
@@ -56,10 +56,10 @@ const Register = () => {
         "phone":phone
       }
       // console.log(data);
-      await axios.post('http://localhost:3000/api/register', data)
+      axios.post('http://localhost:3000/api/register', data)
       .then(response => {
         // console.log(response.data);
-        setMessage(response?.data?.message)
+        setMessage(response.data.message)
         navigate("/login", message)
       })
       .catch(error => {

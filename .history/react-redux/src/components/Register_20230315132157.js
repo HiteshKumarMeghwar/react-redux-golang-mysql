@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,14 +14,7 @@ const Register = () => {
   const [message, setMessage] = useState();
   const navigate = useNavigate();
 
-  useEffect(() => {
-      const User = localStorage.getItem("user");
-      if(User) {
-          navigate("/")
-      }
-  }, [navigate]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // validate form fields
     const errors = {};
@@ -56,10 +49,10 @@ const Register = () => {
         "phone":phone
       }
       // console.log(data);
-      await axios.post('http://localhost:3000/api/register', data)
+      axios.post('http://localhost:3000/api/register', data)
       .then(response => {
         // console.log(response.data);
-        setMessage(response?.data?.message)
+        setMessage(response.data.message)
         navigate("/login", message)
       })
       .catch(error => {

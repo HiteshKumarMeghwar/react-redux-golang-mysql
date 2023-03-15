@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
     const Nav = () => {
@@ -12,22 +12,15 @@ import { Link, useNavigate } from 'react-router-dom';
                 setIsLoggedIn(true)
                 navigate("/")
             }
-        }, [setIsLoggedIn, navigate]);
+        }, [setIsLoggedIn]);
 
-        const handleLogout = async (e) => {
-            e.preventDefault()
-            const token = localStorage.getItem('token')
-            await axios.get('http://localhost:3000/api/logout', {
-                withCredentials: true,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+        const handleLogout = async () => {
+            await axios.post('http://localhost:3000/api/logout')
             .then(response => {
                 // console.log(response.data);
                 localStorage.removeItem("token")
                 localStorage.removeItem("user")
-                // localStorage.removeItem("isHomePageReloaded")
+                localStorage.removeItem("isHomePageReloaded")
                 navigate("/login");
                 window.location.reload();
             })
@@ -35,6 +28,8 @@ import { Link, useNavigate } from 'react-router-dom';
                 console.error(error);
             });
         }
+            
+    };  
     
     return (
         <>
@@ -62,7 +57,7 @@ import { Link, useNavigate } from 'react-router-dom';
                         <div id="navbarSupportedContent" className='float-end'>
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a href='/' className="nav-link text-light" onClick={handleLogout}>Logout</a>
+                                    <a className="nav-link text-light" onClick={handleLogout}>Logout</a>
                                 </li>
                             </ul>
                         </div>

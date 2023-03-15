@@ -4,19 +4,22 @@ import { Link, useNavigate } from 'react-router-dom';
 
     const Nav = () => {
         const [isLoggedIn, setIsLoggedIn] = useState(false);
+        // const [token, setToken] = useState('');
         const navigate = useNavigate();
 
         useEffect(() => {
             var user = localStorage.getItem('user');
+            // var user_token = localStorage.getItem('token');
             if(user) {
                 setIsLoggedIn(true)
+                // setToken(user_token)
                 navigate("/")
             }
         }, [setIsLoggedIn, navigate]);
 
         const handleLogout = async (e) => {
             e.preventDefault()
-            const token = localStorage.getItem('token')
+            const token = "%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg5NjcyMjAuOTgzOTc4LCJpc3MiOiIxIn0.-0-5FwOEHP2d8g7fSrzKr8fbyo6RSenPkRnCyJ-_OMo%22";
             await axios.get('http://localhost:3000/api/logout', {
                 withCredentials: true,
                 headers: {
