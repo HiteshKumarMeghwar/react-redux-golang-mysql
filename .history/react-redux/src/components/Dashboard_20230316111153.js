@@ -51,8 +51,8 @@ const Dashboard = () => {
                           
                           <div class="buttons">
                               
-                              <Link to='/my_posts' class="btn btn-outline-primary px-4">My Posts</Link>
-                              <Link to='/edit_post' class="btn btn-primary px-4 ms-3">Edit Profile</Link>
+                              <Link class="btn btn-outline-primary px-4">My Posts</Link>
+                              <Link class="btn btn-primary px-4 ms-3">Edit Profile</Link>
                           </div>
                           
                           

@@ -10,11 +10,12 @@ import { Link, useNavigate } from 'react-router-dom';
             var user = localStorage.getItem('user');
             if(user) {
                 setIsLoggedIn(true)
+                navigate("/")
             }
         }, [setIsLoggedIn, navigate]);
 
         const handleLogout = async () => {
-
+            
             const token = localStorage.getItem('token')
             await axios.get('http://localhost:3000/api/logout', {
                 withCredentials: true,

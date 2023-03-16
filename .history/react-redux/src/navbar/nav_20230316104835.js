@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
             if(user) {
                 setIsLoggedIn(true)
             }
-        }, [setIsLoggedIn, navigate]);
+        }, [setIsLoggedIn]);
 
         const handleLogout = async () => {
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../css/ProfileCss.css'
 
 const Dashboard = () => {
@@ -51,8 +51,8 @@ const Dashboard = () => {
                           
                           <div class="buttons">
                               
-                              <Link to='/my_posts' class="btn btn-outline-primary px-4">My Posts</Link>
-                              <Link to='/edit_post' class="btn btn-primary px-4 ms-3">Edit Profile</Link>
+                              <button class="btn btn-outline-primary px-4">My Posts</button>
+                              <button class="btn btn-primary px-4 ms-3">Edit Profile</button>
                           </div>
                           
                           

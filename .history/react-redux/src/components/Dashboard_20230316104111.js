@@ -1,0 +1,17 @@
+import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
+
+const Dashboard = () => {
+  const [userData, setUserData] = useState("");
+  const navigate = useNavigate();
+  
+  var localStorage.getItem('user')
+  
+  return (
+    <div>
+      Dashboard
+    </div>
+  )
+}
+
+export default Dashboard

@@ -6,13 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         const navigate = useNavigate();
 
-        useEffect(() => {
-            var user = localStorage.getItem('user');
-            if(user) {
-                setIsLoggedIn(true)
-            }
-        }, [setIsLoggedIn, navigate]);
-
         const handleLogout = async () => {
 
             const token = localStorage.getItem('token')
@@ -34,6 +27,14 @@ import { Link, useNavigate } from 'react-router-dom';
                 console.error(error);
             });
         }
+
+        useEffect(() => {
+            var user = localStorage.getItem('user');
+            if(user) {
+                setIsLoggedIn(true)
+                navigate("/")
+            }
+        }, [setIsLoggedIn, navigate]);
     
     return (
         <>

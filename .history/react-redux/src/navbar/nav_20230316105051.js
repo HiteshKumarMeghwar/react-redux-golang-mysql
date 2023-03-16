@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
             var user = localStorage.getItem('user');
             if(user) {
                 setIsLoggedIn(true)
+                navigate("/")
             }
         }, [setIsLoggedIn, navigate]);
 
