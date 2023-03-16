@@ -52,7 +52,7 @@ const Dashboard = () => {
                                 <div className="buttons">
 
                                     <Link to='/my_posts' className="btn btn-outline-primary px-4">My Posts</Link>
-                                    <Link to='/edit_profile' className="btn btn-outline-primary px-4 ms-3">Edit Profile</Link>
+                                    <Link to='/edit_post' className="btn btn-outline-primary px-4 ms-3">Edit Profile</Link>
                                     <Link to='/add_post' className="btn btn-outline-primary px-4 ms-3">Create Post</Link>
                                 </div>
 

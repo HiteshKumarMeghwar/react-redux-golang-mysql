@@ -82,13 +82,11 @@ const AllPosts = () => {
                               <span className="user-subhead">
                                 Admin
                               </span>
-                            )}
-                            { item.user.role_id === 2 && (
+                            ) && item.user.role_id === 2 && (
                               <span className="user-subhead">
                                 Author
                               </span>
-                            )}
-                            { item.user.role_id === 3 && (
+                            ) && item.user.role_id === 3 && (
                               <span className="user-subhead">
                                 Guest
                               </span>

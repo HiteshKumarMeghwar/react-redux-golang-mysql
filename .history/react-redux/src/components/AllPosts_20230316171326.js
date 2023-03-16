@@ -78,21 +78,13 @@ const AllPosts = () => {
                         <td>
                           <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
                           <Link to="/" className="user-link">{item.title}</Link>
-                            { item.user.role_id === 1 && (
-                              <span className="user-subhead">
-                                Admin
-                              </span>
-                            )}
-                            { item.user.role_id === 2 && (
-                              <span className="user-subhead">
-                                Author
-                              </span>
-                            )}
-                            { item.user.role_id === 3 && (
-                              <span className="user-subhead">
-                                Guest
-                              </span>
-                            )}
+                          <span className="user-subhead">
+                            (
+                              if(item.role_id === 1){
+                                "Admin"
+                              }
+                            )
+                          </span>
                         </td>
                         <td>
                           2013/08/08

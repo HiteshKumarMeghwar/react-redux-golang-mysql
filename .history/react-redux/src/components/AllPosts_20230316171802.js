@@ -78,19 +78,10 @@ const AllPosts = () => {
                         <td>
                           <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
                           <Link to="/" className="user-link">{item.title}</Link>
-                            { item.user.role_id === 1 && (
+                          
+                            { item.role_id === 1 && (
                               <span className="user-subhead">
                                 Admin
-                              </span>
-                            )}
-                            { item.user.role_id === 2 && (
-                              <span className="user-subhead">
-                                Author
-                              </span>
-                            )}
-                            { item.user.role_id === 3 && (
-                              <span className="user-subhead">
-                                Guest
                               </span>
                             )}
                         </td>

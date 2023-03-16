@@ -11,7 +11,6 @@ import ContactUs from './components/ContactUs'
 import MyPosts from './components/MyPosts'
 import EditPosts from './components/EditPosts'
 import AddPost from './components/AddPost'
-import EditProfile from './components/EditProfile'
 
 const App = () => {
   return (
@@ -28,7 +27,6 @@ const App = () => {
           <Route exact path='/contact_us' Component={ContactUs} />
           <Route exact path='/my_posts' Component={MyPosts} />
           <Route exact path='/edit_post/:id' Component={EditPosts} />
-          <Route exact path='/edit_profile' Component={EditProfile} />
         </Routes>
       </BrowserRouter>
     </>
