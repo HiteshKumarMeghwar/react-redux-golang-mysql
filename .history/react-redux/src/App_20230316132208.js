@@ -24,7 +24,7 @@ const App = () => {
           <Route exact path='/about_us' Component={AboutUs} />
           <Route exact path='/contact_us' Component={ContactUs} />
           <Route exact path='/my_posts' Component={MyPosts} />
-          <Route exact path='/edit_post/:id' Component={EditPosts} />
+          <Route exact path='/edit_post/id' component={EditPosts} />
         </Routes>
       </BrowserRouter>
     </>

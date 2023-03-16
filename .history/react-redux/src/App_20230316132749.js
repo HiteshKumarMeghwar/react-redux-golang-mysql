@@ -9,7 +9,7 @@ import AllPosts from './components/AllPosts'
 import AboutUs from './components/AboutUs'
 import ContactUs from './components/ContactUs'
 import MyPosts from './components/MyPosts'
-import EditPosts from './components/EditPosts'
+import EditPosts from './components/ContactUs'
 
 const App = () => {
   return (
@@ -24,7 +24,7 @@ const App = () => {
           <Route exact path='/about_us' Component={AboutUs} />
           <Route exact path='/contact_us' Component={ContactUs} />
           <Route exact path='/my_posts' Component={MyPosts} />
-          <Route exact path='/edit_post/:id' Component={EditPosts} />
+          <Route exact path='/update_post' component={EditPosts} />
         </Routes>
       </BrowserRouter>
     </>

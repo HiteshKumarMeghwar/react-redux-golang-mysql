@@ -28,11 +28,6 @@ const AllPosts = () => {
         }
     }, [navigate]);
 
-    const deletePost = (e, index) => {
-      e.preventDefault()
-      console.log(index)
-    }
-
     return (
     <>
       <div className="container">
@@ -69,13 +64,13 @@ const AllPosts = () => {
                         </td>
                         <td style={{width: '20%'}}>
                           <div>
-                            <Link to={`/edit_post/${item.id}`} className="table-link">
+                            <a href="/" className="table-link">
                               <span className="fa-stack">
                                 <i className="fa fa-square fa-stack-2x"></i>
                                 <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                               </span>
-                            </Link>
-                            <a href='/' onClick={(e) => deletePost(e, item.id)} className="table-link danger">
+                            </a>
+                            <a href="/" className="table-link danger">
                               <span className="fa-stack">
                                 <i className="fa fa-square fa-stack-2x"></i>
                                 <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
