@@ -1,21 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState} from 'react'
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
     const Nav = () => {
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         const navigate = useNavigate();
 
-        useEffect(() => {
-            var user = localStorage.getItem('user');
-            if(user) {
-                setIsLoggedIn(true)
-            }
-        }, [setIsLoggedIn, navigate]);
+        var user = localStorage.getItem('user');
+        if(user) {
+            setIsLoggedIn(true)
+        }
 
-        const handleLogout = async (e) => {
-            e.preventDefault()
+        const handleLogout = async () => {
+
             const token = localStorage.getItem('token')
             await axios.get('http://localhost:3000/api/logout', {
                 withCredentials: true,
@@ -24,21 +21,15 @@ import { Link, useNavigate } from 'react-router-dom';
                 },
             })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 localStorage.removeItem("token")
                 localStorage.removeItem("user")
+                // localStorage.removeItem("isHomePageReloaded")
                 navigate("/login");
                 window.location.reload();
             })
             .catch(error => {
                 console.error(error);
-                const cookieValue = Cookies.get('myCookie');
-                if(!cookieValue){
-                    localStorage.removeItem("token")
-                    localStorage.removeItem("user")
-                    navigate("/login");
-                    window.location.reload();
-                }
             });
         }
     

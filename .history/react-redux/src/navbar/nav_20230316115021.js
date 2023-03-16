@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
     const Nav = () => {
@@ -32,8 +31,8 @@ import { Link, useNavigate } from 'react-router-dom';
             })
             .catch(error => {
                 console.error(error);
-                const cookieValue = Cookies.get('myCookie');
-                if(!cookieValue){
+                if(error?.response?.status === 401 || error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 500){
+                    console.log(error?.response?.data?.message)
                     localStorage.removeItem("token")
                     localStorage.removeItem("user")
                     navigate("/login");
