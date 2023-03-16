@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import '../css/Posts.css'
 import axios from 'axios';
+import KJUR from 'jsrsasign';
+import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,9 +36,20 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
+      var jwt_token = localStorage.getItem('token') // here token ....
+      const SecretKey = 'secret';
+      const header = { alg: 'HS256', typ: 'JWT' };
+      const numericValue = jwt_decode(jwt_token);
+      const payload = { iss: numericValue.iss, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 };
+      const token = KJUR.jws.JWS.sign(header.alg, JSON.stringify(header), JSON.stringify(payload), SecretKey);
+      console.log(token);
+      Cookies.set('jwt', token, { expires: 1 });
       await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwt_token}`
+          }
         }
       )
       .then(response => {

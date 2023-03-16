@@ -33,13 +33,16 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
+      const token = localStorage.getItem('token')
+      await axios.get(`http://localhost:3000/api/delete_post`, index, 
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then(response => {
-        console.log(response?.data)
         setMessage(response?.data?.message)
         toast(response?.data?.message)
         getPosts()

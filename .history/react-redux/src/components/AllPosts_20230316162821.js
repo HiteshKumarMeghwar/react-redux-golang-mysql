@@ -33,9 +33,13 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
+      const token = localStorage.getItem('token')
       await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
       )
       .then(response => {

@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
         const handleLogout = async (e) => {
             e.preventDefault()
+            const token = localStorage.getItem('token')
             await axios.get('http://localhost:3000/api/logout', {
                 withCredentials: true,
             })

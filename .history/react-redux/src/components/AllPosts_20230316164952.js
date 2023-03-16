@@ -12,7 +12,14 @@ const AllPosts = () => {
     const navigate = useNavigate();
 
     const getPosts = async () => {
-      await axios.get('http://localhost:3000/api/all_posts', {withCredentials: true})
+      await axios.get('http://localhost:3000/api/all_posts', 
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then(response => {
           // console.log(response?.data?.posts);
           setPosts(response?.data?.posts)
@@ -33,9 +40,13 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
+      const token = localStorage.getItem('token')
       await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
       )
       .then(response => {

@@ -14,6 +14,7 @@ func Setup(app *fiber.App) {
 	app.Post("/api/register", controllers.Register)
 
 	// Middleware for check user is Authenticated or not ...........
+	app.Delete("/api/delete_post", controllers.DeletePost)
 	app.Use(middleware.IsAuthenticate)
 
 	app.Get("/api/logout", controllers.Logout)
@@ -27,7 +28,7 @@ func Setup(app *fiber.App) {
 	app.Get("/api/all_posts", controllers.ShowAllPosts)
 	app.Post("/api/create_post", controllers.CreatePost)
 	app.Put("/api/update_post", controllers.UpdatePost)
-	app.Delete("/api/delete_post/:id", controllers.DeletePost)
+	app.Delete("/api/delete_post", controllers.DeletePost)
 
 	// Image Static Route ..................
 	app.Static("/api/upload", "./uploads")
