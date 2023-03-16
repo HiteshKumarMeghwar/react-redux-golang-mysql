@@ -3,6 +3,8 @@
         "gofiber",
         "gohtml",
         "gorm",
+        "jsrsasign",
+        "KJUR",
         "lestrrat",
         "Meghwar",
         "toastify"

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import KJUR from 'jsrsasign';
-import jwt_decode from 'jwt-decode';
-import Cookies from 'js-cookie';
+// import jwt_decode from 'jwt-decode';
+// import Cookies from 'js-cookie';
 import { Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -53,13 +52,9 @@ const Login = () => {
         localStorage.setItem("token", JSON.stringify(response?.data?.token))
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         var jwt_token = localStorage.getItem('token') // here token ....
-        const SecretKey = 'secret';
-        const header = { alg: 'HS256', typ: 'JWT' };
-        const numericValue = jwt_decode(jwt_token);
-        const payload = { iss: numericValue.iss, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 };
-        const token = KJUR.jws.JWS.sign(header.alg, JSON.stringify(header), JSON.stringify(payload), SecretKey);
-        console.log(token);
-        Cookies.set('jwt', token, { expires: 1 });
+        // const numericValue = jwt_decode(jwt_token);
+        console.log(jwt_token)
+        // Cookies.set('jwt', numericValue.iss, { expires: 1 });
         navigate("/", message)
       })
       .catch(error => {
