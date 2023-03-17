@@ -33,7 +33,14 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, {withCredentials: true})
+      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
+        {
+          withCredentials: true,
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+          },
+        }
+      )
       .then(response => {
         console.log(response?.data)
         setMessage(response?.data?.message)

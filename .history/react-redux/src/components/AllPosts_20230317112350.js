@@ -33,7 +33,11 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, {withCredentials: true})
+      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
+        {
+          withCredentials: true,
+        }
+      )
       .then(response => {
         console.log(response?.data)
         setMessage(response?.data?.message)
@@ -101,7 +105,7 @@ const AllPosts = () => {
                         </td>
                         <td style={{width: '20%'}}>
                           <div>
-                            <Link to={`/edit_post/${item.id}`} className="table-link">
+                            <Link to={`/edit_post/${item}`} className="table-link">
                               <span className="fa-stack">
                                 <i className="fa fa-square fa-stack-2x"></i>
                                 <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>

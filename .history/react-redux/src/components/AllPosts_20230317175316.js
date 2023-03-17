@@ -33,7 +33,7 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, {withCredentials: true})
+      await axios.delete(`http://localhost:3000/api/delete_post/${index}`)
       .then(response => {
         console.log(response?.data)
         setMessage(response?.data?.message)

@@ -64,7 +64,6 @@ func CreatePost(c *fiber.Ctx) error {
 			"message": "Invalid payload",
 		})
 	}
-	c.Status(200)
 	return c.JSON(fiber.Map{
 		"message": "Congratulations!, Your post is live",
 	})
@@ -72,11 +71,6 @@ func CreatePost(c *fiber.Ctx) error {
 
 func UpdatePost(c *fiber.Ctx) error {
 	return c.SendString("Update Post")
-}
-
-func ShowSinglePost(c *fiber.Ctx) error {
-	id := c.Params("id")
-	return c.SendString(id)
 }
 
 func DeletePost(c *fiber.Ctx) error {

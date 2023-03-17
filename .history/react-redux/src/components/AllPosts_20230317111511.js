@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllPosts = () => {
     const [posts, setPosts] = useState([]);
     const [message, setMessage] = useState('');
+    const [csrfToken, setCsrfToken] = useState('');
     const navigate = useNavigate();
 
     const getPosts = async () => {
@@ -32,8 +33,17 @@ const AllPosts = () => {
     }, [navigate]);
 
     const deletePost = async (e, index) => {
+      var jwt_token = localStorage.getItem('token') // here token ....
+      setCsrfToken(jwt_token)
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, {withCredentials: true})
+      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
+        {
+          withCredentials: true,
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+          },
+        }
+      )
       .then(response => {
         console.log(response?.data)
         setMessage(response?.data?.message)
@@ -107,12 +117,16 @@ const AllPosts = () => {
                                 <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                               </span>
                             </Link>
-                            <a href='/' onClick={(e) => deletePost(e, item.id)} className="table-link danger">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
+                            <form>
+                              <input type="hidden" name="_token" value={csrfToken} />
+                              <input type="hidden" name="_method" value="delete" />
+                              <a href='/' onClick={(e) => deletePost(e, item.id)} className="table-link danger">
+                                <span className="fa-stack">
+                                  <i className="fa fa-square fa-stack-2x"></i>
+                                  <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                              </a>
+                            </form>
                           </div>
                         </td>
                       </tr>

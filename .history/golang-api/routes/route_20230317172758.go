@@ -21,14 +21,12 @@ func Setup(app *fiber.App) {
 	// Users Routes .......................
 	app.Post("/api/single_user", controllers.SingleUser)
 	app.Post("/api/all_users", controllers.AllUsers)
-	app.Post("/api/all_users/:id", controllers.SingleUserWithID)
 	app.Delete("/api/delete_user", controllers.DeleteUser)
 
 	// Post Routes .....................
 	app.Get("/api/all_posts", controllers.ShowAllPosts)
-	app.Post("/api/all_posts/:id", controllers.ShowSinglePost)
 	app.Post("/api/create_post", controllers.CreatePost)
-	app.Put("/api/update_post/:id", controllers.UpdatePost)
+	app.Put("/api/update_post", controllers.UpdatePost)
 	app.Delete("/api/delete_post/:id", controllers.DeletePost)
 
 	// Image Static Route ..................

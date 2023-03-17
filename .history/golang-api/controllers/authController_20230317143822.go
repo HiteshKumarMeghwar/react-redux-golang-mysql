@@ -101,18 +101,18 @@ func Register(c *fiber.Ctx) error {
 
 	// Create a new message using gomail
 	msg := gomail.NewMessage()
-	msg.SetHeader("From", "hiteshkumarkunri@gmail.com")
+	msg.SetHeader("From", "hk119892@gmail.com")
 	msg.SetHeader("To", data["email"])
 	msg.SetHeader("Subject", "Registration Confirmation Mail!")
 	msg.SetBody("text/html", "<h1>Welcome "+data["first_name"]+" "+data["last_name"]+"!</h1><p>Thank you for registering with Web.</p>")
 
 	// Create a new email sending client
-	d := gomail.NewDialer("smtp.gmail.com", 587, "hiteshkumarkunri@gmail.com", "onrqhkudckxmmxku")
+	d := gomail.NewDialer("smtp.gmail.com", 587, "hk119892@gmail.com", "Karrish1230")
 
 	// Send the message using the email sending client
 	if err := d.DialAndSend(msg); err != nil {
 		// Handle error sending email
-		return c.JSON(fiber.Map{
+		return c.Render("register.html", fiber.Map{
 			"error": "Error sending email: " + err.Error(),
 		})
 	}

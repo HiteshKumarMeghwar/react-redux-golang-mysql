@@ -1,9 +1,5 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
     const AddPost = () => {
@@ -12,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
         const [image, setImage] = useState('');
         const [message, setMessage] = useState('');
         const [errors, setErrors] = useState({});
-        // const navigate = useNavigate();
     
         const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -55,34 +50,20 @@ import 'react-toastify/dist/ReactToastify.css';
                     "image" : image
                 }
                 // console.log(data);
-                await axios.post('http://localhost:3000/api/create_post', data, 
-                {
-                    withCredentials: true,
-                    headers: {"Content-Type":"multipart/form-data"},
-                })
+                await axios.post('http://localhost:3000/api/add_post', data)
                 .then(response => {
                     // console.log(response.data);
-                    if(response?.status === 200){
-                        setTitle("")
-                        setDesc("")
-                        setImage("")
-                        setMessage(response?.data?.message)
-                        toast(response?.data?.message)
-                    }
+                    setMessage(response?.data?.message)
+                    navigate("/", message)
                 })
                 .catch(error => {
                     console.error(error);
-                    setMessage(error?.response?.data?.message)
-                    toast(error?.response?.data?.message)
                 });
             }
         };
         
         return (
-            <div className='container mt-3'>
-                {message && (
-                    <ToastContainer />
-                )}
+            <div className='container'>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>

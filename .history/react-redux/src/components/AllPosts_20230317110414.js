@@ -33,7 +33,11 @@ const AllPosts = () => {
 
     const deletePost = async (e, index) => {
       e.preventDefault()
-      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, {withCredentials: true})
+      await axios.delete(`http://localhost:3000/api/delete_post/${index}`, index, 
+        {
+          withCredentials: true,
+        }
+      )
       .then(response => {
         console.log(response?.data)
         setMessage(response?.data?.message)
@@ -107,12 +111,16 @@ const AllPosts = () => {
                                 <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                               </span>
                             </Link>
-                            <a href='/' onClick={(e) => deletePost(e, item.id)} className="table-link danger">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
+                            <form>
+                              <input type="hidden" name="_token" value={csrfToken} />
+                              <input type="hidden" name="_method" value="delete" />
+                              <a href='/' onClick={(e) => deletePost(e, item.id)} className="table-link danger">
+                                <span className="fa-stack">
+                                  <i className="fa fa-square fa-stack-2x"></i>
+                                  <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                              </a>
+                            </form>
                           </div>
                         </td>
                       </tr>

@@ -63,9 +63,6 @@ import 'react-toastify/dist/ReactToastify.css';
                 .then(response => {
                     // console.log(response.data);
                     if(response?.status === 200){
-                        setTitle("")
-                        setDesc("")
-                        setImage("")
                         setMessage(response?.data?.message)
                         toast(response?.data?.message)
                     }

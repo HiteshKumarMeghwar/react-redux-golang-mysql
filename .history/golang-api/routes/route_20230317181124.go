@@ -26,7 +26,6 @@ func Setup(app *fiber.App) {
 
 	// Post Routes .....................
 	app.Get("/api/all_posts", controllers.ShowAllPosts)
-	app.Post("/api/all_posts/:id", controllers.ShowSinglePost)
 	app.Post("/api/create_post", controllers.CreatePost)
 	app.Put("/api/update_post/:id", controllers.UpdatePost)
 	app.Delete("/api/delete_post/:id", controllers.DeletePost)

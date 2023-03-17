@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
         const [image, setImage] = useState('');
         const [message, setMessage] = useState('');
         const [errors, setErrors] = useState({});
-        // const navigate = useNavigate();
+        const navigate = useNavigate();
     
         const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -62,13 +62,8 @@ import 'react-toastify/dist/ReactToastify.css';
                 })
                 .then(response => {
                     // console.log(response.data);
-                    if(response?.status === 200){
-                        setTitle("")
-                        setDesc("")
-                        setImage("")
-                        setMessage(response?.data?.message)
-                        toast(response?.data?.message)
-                    }
+                    setMessage(response?.data?.message)
+                    toast(response?.data?.message)
                 })
                 .catch(error => {
                     console.error(error);

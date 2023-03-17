@@ -112,7 +112,7 @@ const EditPosts = () => {
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formTitle">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" value={title} defaultValue={updateData.title} onChange={handleTitleChange} isInvalid={errors.title} />
+                <Form.Control type="text" value={userData.title} onChange={handleTitleChange} isInvalid={errors.title} />
                 <Form.Control.Feedback type="invalid">
                     {errors.title}
                 </Form.Control.Feedback>
@@ -120,7 +120,7 @@ const EditPosts = () => {
 
             <Form.Group controlId="formDesc">
                 <Form.Label>Description</Form.Label>
-                <Form.Control as="textarea" rows={3} defaultValue={updateData.desc} value={desc} onChange={handleDescChange} isInvalid={errors.desc} />
+                <Form.Control as="textarea" rows={3} value={desc} onChange={handleDescChange} isInvalid={errors.desc} />
                 <Form.Control.Feedback type="invalid">
                     {errors.desc}
                 </Form.Control.Feedback>

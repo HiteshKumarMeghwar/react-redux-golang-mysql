@@ -1,18 +1,12 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
     const AddPost = () => {
         const [title, setTitle] = useState('');
         const [desc, setDesc] = useState('');
         const [image, setImage] = useState('');
-        const [message, setMessage] = useState('');
         const [errors, setErrors] = useState({});
-        // const navigate = useNavigate();
     
         const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -32,7 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
             reader.readAsDataURL(file);
         };
     
-        const handleSubmit = async(e) => {
+        const handleSubmit = (e) => {
             e.preventDefault();
             console.log({ title, desc, image });
             const errors = {};
@@ -47,65 +41,24 @@ import 'react-toastify/dist/ReactToastify.css';
             }if (Object.keys(errors).length > 0) {
                 setErrors(errors);
             }
-            else {
-                // submit the form
-                var data = {
-                    "title" : title,
-                    "desc" : desc,
-                    "image" : image
-                }
-                // console.log(data);
-                await axios.post('http://localhost:3000/api/create_post', data, 
-                {
-                    withCredentials: true,
-                    headers: {"Content-Type":"multipart/form-data"},
-                })
-                .then(response => {
-                    // console.log(response.data);
-                    if(response?.status === 200){
-                        setTitle("")
-                        setDesc("")
-                        setImage("")
-                        setMessage(response?.data?.message)
-                        toast(response?.data?.message)
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    setMessage(error?.response?.data?.message)
-                    toast(error?.response?.data?.message)
-                });
-            }
         };
         
         return (
-            <div className='container mt-3'>
-                {message && (
-                    <ToastContainer />
-                )}
+            <div className='container'>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>
                         <Form.Control type="text" value={title} onChange={handleTitleChange} isInvalid={errors.title} />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.title}
-                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formDesc">
                         <Form.Label>Description</Form.Label>
                         <Form.Control as="textarea" rows={3} value={desc} onChange={handleDescChange} isInvalid={errors.desc} />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.desc}
-                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formImage">
                         <Form.Label>Image URL</Form.Label>
                         <Form.Control type="file" onChange={handleImageChange} isInvalid={errors.image} />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.image}
-                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Button variant="primary mt-3" type="submit">
