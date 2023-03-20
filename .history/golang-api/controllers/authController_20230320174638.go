@@ -192,9 +192,6 @@ func VerifyEmail(c *fiber.Ctx) error {
 	if user.VerificationToken == token {
 		user.IsVerified = true
 
-		// Update the user in the database
-		database.DB.Where("email = ?", email).Updates(user)
-
 		c.Status(200)
 		return c.JSON(fiber.Map{
 			"message": "Email verified successfully ...!",

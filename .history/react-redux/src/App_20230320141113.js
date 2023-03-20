@@ -12,7 +12,6 @@ import MyPosts from './components/MyPosts'
 import EditPosts from './components/EditPosts'
 import AddPost from './components/AddPost'
 import EditProfile from './components/EditProfile'
-import VerifyProcess from './components/VerifyProcess'
 
 const App = () => {
   return (

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditPosts = () => {
-    const id = useParams("id"); // assuming the URL has a parameter named "id"
+    const id = useParams(); // assuming the URL has a parameter named "id"
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [image, setImage] = useState('');

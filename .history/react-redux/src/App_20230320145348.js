@@ -30,7 +30,7 @@ const App = () => {
           <Route exact path='/my_posts' Component={MyPosts} />
           <Route exact path='/edit_post/:id' Component={EditPosts} />
           <Route exact path='/edit_profile' Component={EditProfile} />
-          <Route exact path='/email_verify/:email/:token' Component={VerifyProcess} />
+          <Route exact path='/email_verify/:id Component={VerifyProcess} />
         </Routes>
       </BrowserRouter>
     </>

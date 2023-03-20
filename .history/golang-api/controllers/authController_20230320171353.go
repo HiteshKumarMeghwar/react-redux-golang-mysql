@@ -178,22 +178,14 @@ func VerifyEmail(c *fiber.Ctx) error {
 	token := c.Params("token")
 
 	// Find the user with the given email address in the database
-	var user models.User
-	database.DB.Where("email = ?", email).First(&user)
-
-	if user.Id == 0 {
-		c.Status(fiber.StatusNotFound)
-		return c.JSON(fiber.Map{
-			"message": "Email Not Valid! Please go back to link in your email ... !",
-		})
-	}
+	user := findUserByEmail(email)
 
 	// Verify the user's email address if the verification token matches
-	if user.VerificationToken == token {
+	if user != nil && user.VerificationToken == token {
 		user.IsVerified = true
 
 		// Update the user in the database
-		database.DB.Where("email = ?", email).Updates(user)
+		database.DB.Where("email = ?", email).First(&user)
 
 		c.Status(200)
 		return c.JSON(fiber.Map{
@@ -206,10 +198,19 @@ func VerifyEmail(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "Invalid email or token ...!",
 		// "user":    user,
-		"email":          email,
-		"token":          token,
-		"database_token": user.VerificationToken,
+		"email": email,
+		"token": token,
 	})
+}
+
+// findUserByEmail finds a user with the given email address in the database
+
+func findUserByEmail(email string) *User {
+	// Find the user with the given email address in the database
+	var user User
+	database.DB.Where("email = ?", email).First(&user)
+	// Return the user if found, or nil if not found
+	return nil
 }
 
 func Logout(c *fiber.Ctx) error {

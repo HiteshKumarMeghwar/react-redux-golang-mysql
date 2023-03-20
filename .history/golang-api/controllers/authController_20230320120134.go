@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"math/rand"
 	"regexp"
 	"strconv"
 	"strings"
@@ -41,7 +40,6 @@ func Login(c *fiber.Ctx) error {
 
 	var user models.User
 	database.DB.Where("email = ?", data["email"]).First(&user)
-
 	if user.Id == 0 {
 		c.Status(fiber.StatusNotFound)
 		return c.JSON(fiber.Map{
@@ -54,13 +52,6 @@ func Login(c *fiber.Ctx) error {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"message": "incorrect password",
-		})
-	}
-
-	if !user.IsVerified {
-		c.Status(fiber.StatusUnauthorized)
-		return c.JSON(fiber.Map{
-			"message": "Your Account didn't Verified From Google ... !",
 		})
 	}
 
@@ -120,19 +111,21 @@ func Register(c *fiber.Ctx) error {
 
 	pass, _ := bcryptPassword.HashPassword(data["password"])
 
-	// Generate a random verification token
-	rand.Seed(time.Now().UnixNano())
-	token := strconv.Itoa(rand.Intn(100000))
-
+	user := models.User{
+		FirstName: data["first_name"],
+		LastName:  data["last_name"],
+		Email:     strings.TrimSpace(data["email"]),
+		Password:  pass,
+		Phone:     data["phone"],
+		RoleId:    3,
+	}
 	user := User{
-		FirstName:         data["first_name"],
-		LastName:          data["last_name"],
-		Email:             strings.TrimSpace(data["email"]),
-		Password:          pass,
-		Phone:             data["phone"],
-		RoleId:            3,
-		IsVerified:        false,
-		VerificationToken: token,
+		FirstName: data["first_name"],
+		LastName:  data["last_name"],
+		Email:     strings.TrimSpace(data["email"]),
+		Password:  pass,
+		Phone:     data["phone"],
+		RoleId:    3,
 	}
 
 	// Send an email to the user's email address ................
@@ -159,7 +152,7 @@ func sendVerificationEmail(user User) error {
 	msg.SetHeader("From", "hiteshkumarkunri@gmail.com")
 	msg.SetHeader("To", user.Email)
 	msg.SetHeader("Subject", "Registration Confirmation Mail!")
-	msg.SetBody("text/html", "<h1>Welcome "+user.FirstName+" "+user.LastName+"!</h1><p>Thank you for registering with Web.</p><br /><h5>'Please click the following link to verify your email address: http://localhost:3001/email_verify?email="+user.Email+"&token="+user.VerificationToken+"'</h5>")
+	msg.SetBody("text/html", "<h1>Welcome "+user.FirstName+" "+user.LastName+"!</h1><p>Thank you for registering with Web.</p><br /><h6>'Please click the following link to verify your email address: http://localhost:3000/verify?email="+user.Email+"&token="+user.VerificationToken+"'</h6>")
 
 	// Create a new email sending client
 	d := gomail.NewDialer("smtp.gmail.com", 587, "hiteshkumarkunri@gmail.com", "onrqhkudckxmmxku")
@@ -178,38 +171,26 @@ func VerifyEmail(c *fiber.Ctx) error {
 	token := c.Params("token")
 
 	// Find the user with the given email address in the database
-	var user models.User
-	database.DB.Where("email = ?", email).First(&user)
-
-	if user.Id == 0 {
-		c.Status(fiber.StatusNotFound)
-		return c.JSON(fiber.Map{
-			"message": "Email Not Valid! Please go back to link in your email ... !",
-		})
-	}
+	user := findUserByEmail(email)
 
 	// Verify the user's email address if the verification token matches
-	if user.VerificationToken == token {
+	if user != nil && user.VerificationToken == token {
 		user.IsVerified = true
 
 		// Update the user in the database
-		database.DB.Where("email = ?", email).Updates(user)
 
-		c.Status(200)
-		return c.JSON(fiber.Map{
-			"message": "Email verified successfully ...!",
-			"user":    user,
-		})
+		return c.SendString("Email verified successfully!")
 	}
 
-	c.Status(404)
-	return c.JSON(fiber.Map{
-		"message": "Invalid email or token ...!",
-		// "user":    user,
-		"email":          email,
-		"token":          token,
-		"database_token": user.VerificationToken,
-	})
+	return c.SendString("Invalid email or token!")
+}
+
+// findUserByEmail finds a user with the given email address in the database
+func findUserByEmail(email string) *User {
+	// Find the user with the given email address in the database
+
+	// Return the user if found, or nil if not found
+	return nil
 }
 
 func Logout(c *fiber.Ctx) error {

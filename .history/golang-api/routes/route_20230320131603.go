@@ -12,7 +12,7 @@ func Setup(app *fiber.App) {
 	// Auth Routes ........................
 	app.Post("/api/login", controllers.Login)
 	app.Post("/api/register", controllers.Register)
-	app.Get("/api/verify/:email/:token", controllers.VerifyEmail)
+	app.Get("/api/verify/:email/:verification_token", controllers.VerifyEmail)
 
 	// Middleware for check user is Authenticated or not ...........
 	app.Use(middleware.IsAuthenticate)
