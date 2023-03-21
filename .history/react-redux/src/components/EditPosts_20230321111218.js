@@ -18,7 +18,7 @@ const EditPosts = () => {
 
 
     const userData = async () => {
-        await axios.get(`http://localhost:3000/api/all_posts/${params.id}`, {withCredentials: true})
+        await axios.post(`http://localhost:3000/api/all_posts/${params.id}`)
         .then(response => {
             // console.log(response.data);
             if(response?.status === 200){
@@ -30,7 +30,9 @@ const EditPosts = () => {
         });
     }
 
+
     userData()
+    console.log(updateData)
 
     const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -73,10 +75,7 @@ const EditPosts = () => {
             "image" : image
         }
         // console.log(data);
-        const body = {
-            ...data
-        }
-        await axios.put(`http://127.0.0.1:3000/api/update_post/${params.id}`, {...body}, 
+        await axios.put(`http://localhost:3000/api/update_post/${params.id}`, data, 
         {
             withCredentials: true,
             headers: {"Content-Type":"multipart/form-data"},
@@ -110,7 +109,7 @@ const EditPosts = () => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" defaultValue={updateData.title} onChange={handleTitleChange} isInvalid={errors.title} />
+                        <Form.Control type="text" value={updateData.title} onChange={handleTitleChange} isInvalid={errors.title} />
                         <Form.Control.Feedback type="invalid">
                             {errors.title}
                         </Form.Control.Feedback>
@@ -118,7 +117,7 @@ const EditPosts = () => {
 
                     <Form.Group controlId="formDesc">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} defaultValue={updateData.desc} onChange={handleDescChange} isInvalid={errors.desc} />
+                        <Form.Control as="textarea" rows={3} value={updateData.desc} onChange={handleDescChange} isInvalid={errors.desc} />
                         <Form.Control.Feedback type="invalid">
                             {errors.desc}
                         </Form.Control.Feedback>
@@ -133,9 +132,8 @@ const EditPosts = () => {
                     </Form.Group>
 
                     <Button variant="primary mt-3" type="submit">
-                        Update
+                        Submit
                     </Button>
-                    &nbsp;
                     <Link variant="primary" className='btn btn-success mt-3' to="/all_posts">
                         Back
                     </Link>

@@ -73,10 +73,7 @@ const EditPosts = () => {
             "image" : image
         }
         // console.log(data);
-        const body = {
-            ...data
-        }
-        await axios.put(`http://127.0.0.1:3000/api/update_post/${params.id}`, {...body}, 
+        await axios.put(`http://localhost:3000/api/update_post/${params.id}`, data, 
         {
             withCredentials: true,
             headers: {"Content-Type":"multipart/form-data"},

@@ -76,9 +76,8 @@ const EditPosts = () => {
         const body = {
             ...data
         }
-        await axios.put(`http://127.0.0.1:3000/api/update_post/${params.id}`, {...body}, 
+        await axios.put(`http://0.0.0.0:3000/api/update_post/${params.id}`, {...body}, 
         {
-            withCredentials: true,
             headers: {"Content-Type":"multipart/form-data"},
         })
         .then(response => {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const EditPosts = () => {
     const params = useParams("id"); // assuming the URL has a parameter named "id"
+    console.log(params)
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [image, setImage] = useState('');
@@ -18,11 +19,14 @@ const EditPosts = () => {
 
 
     const userData = async () => {
-        await axios.get(`http://localhost:3000/api/all_posts/${params.id}`, {withCredentials: true})
+        await axios.post(`http://localhost:3000/api/all_posts/${params.id}`, 
+        {
+            withCredentials: true
+        })
         .then(response => {
             // console.log(response.data);
             if(response?.status === 200){
-                setUpdateData(response?.data?.post)
+            setUpdateData(response?.data?.post)
             }
         })
         .catch(error => {
@@ -30,7 +34,9 @@ const EditPosts = () => {
         });
     }
 
+
     userData()
+    console.log(updateData)
 
     const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -73,10 +79,7 @@ const EditPosts = () => {
             "image" : image
         }
         // console.log(data);
-        const body = {
-            ...data
-        }
-        await axios.put(`http://127.0.0.1:3000/api/update_post/${params.id}`, {...body}, 
+        await axios.put(`http://localhost:3000/api/update_post/${id}`, data, 
         {
             withCredentials: true,
             headers: {"Content-Type":"multipart/form-data"},
@@ -110,7 +113,7 @@ const EditPosts = () => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" defaultValue={updateData.title} onChange={handleTitleChange} isInvalid={errors.title} />
+                        <Form.Control type="text" value={title} defaultValue={updateData.title} onChange={handleTitleChange} isInvalid={errors.title} />
                         <Form.Control.Feedback type="invalid">
                             {errors.title}
                         </Form.Control.Feedback>
@@ -118,7 +121,7 @@ const EditPosts = () => {
 
                     <Form.Group controlId="formDesc">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} defaultValue={updateData.desc} onChange={handleDescChange} isInvalid={errors.desc} />
+                        <Form.Control as="textarea" rows={3} defaultValue={updateData.desc} value={desc} onChange={handleDescChange} isInvalid={errors.desc} />
                         <Form.Control.Feedback type="invalid">
                             {errors.desc}
                         </Form.Control.Feedback>
@@ -133,12 +136,8 @@ const EditPosts = () => {
                     </Form.Group>
 
                     <Button variant="primary mt-3" type="submit">
-                        Update
+                        Submit
                     </Button>
-                    &nbsp;
-                    <Link variant="primary" className='btn btn-success mt-3' to="/all_posts">
-                        Back
-                    </Link>
                 </Form>
             </div>
         </div>

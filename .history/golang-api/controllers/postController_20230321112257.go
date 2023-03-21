@@ -117,7 +117,7 @@ func DeletePost(c *fiber.Ctx) error {
 	}
 	c.Status(200)
 	return c.JSON(fiber.Map{
-		"message": "Your Post Deleted Successfully ...!",
+		"message": "okay",
 		"post_id": id,
 	})
 }

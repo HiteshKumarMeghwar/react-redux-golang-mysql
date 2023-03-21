@@ -1,15 +1,12 @@
 package controllers
 
 import (
-	"errors"
 	"math/rand"
-	"strconv"
 
 	"github.com/HiteshKumarMeghwar/react-redux-golang-mysql/tree/main/golang-api/database"
 	"github.com/HiteshKumarMeghwar/react-redux-golang-mysql/tree/main/golang-api/jwtToken"
 	"github.com/HiteshKumarMeghwar/react-redux-golang-mysql/tree/main/golang-api/models"
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/gorm"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyz")
@@ -74,50 +71,24 @@ func CreatePost(c *fiber.Ctx) error {
 }
 
 func UpdatePost(c *fiber.Ctx) error {
-	id, _ := strconv.Atoi(c.Params("id"))
-	blog := models.Blog{
-		Id: uint(id),
-	}
-	if err := c.BodyParser(&blog); err != nil {
-		c.Status(400)
-		return c.JSON(fiber.Map{
-			"message": "post has not updated, Some problems in parsing data ... !",
-		})
-	}
-	database.DB.Model(&blog).Updates(blog)
-	c.Status(200)
-	return c.JSON(fiber.Map{
-		"message": "post updated successfully ... !",
-	})
+	return c.SendString("Update Post")
 }
 
 func ShowSinglePost(c *fiber.Ctx) error {
-	id, _ := strconv.Atoi(c.Params("id"))
-	var blog models.Blog
-	database.DB.Model(&blog).Where("id=?", id).Preload("User").Find(&blog)
+	id := c.Params("id")
 	c.Status(200)
 	return c.JSON(fiber.Map{
 		"message": "okay",
 		"post_id": id,
-		"post":    blog,
 	})
 }
 
 func DeletePost(c *fiber.Ctx) error {
-	id, _ := strconv.Atoi(c.Params("id"))
-	blog := models.Blog{
-		Id: uint(id),
-	}
-	deleteQuery := database.DB.Delete(&blog)
-	if errors.Is(deleteQuery.Error, gorm.ErrRecordNotFound) {
-		c.Status(400)
-		return c.JSON(fiber.Map{
-			"message": "Opps!, record not found",
-		})
-	}
+	postID := c.Params("id")
+
 	c.Status(200)
 	return c.JSON(fiber.Map{
-		"message": "Your Post Deleted Successfully ...!",
-		"post_id": id,
+		"message": "okay",
+		"post_id": postID,
 	})
 }

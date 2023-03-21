@@ -30,7 +30,7 @@ func Setup(app *fiber.App) {
 	app.Get("/api/all_posts/:id", controllers.ShowSinglePost)
 	app.Post("/api/create_post", controllers.CreatePost)
 	app.Put("/api/update_post/:id", controllers.UpdatePost)
-	app.Get("/api/delete_post/:id", controllers.DeletePost)
+	app.Delete("/api/delete_post/:id", controllers.DeletePost)
 
 	// Image Static Route ..................
 	app.Static("/api/upload", "./uploads")
